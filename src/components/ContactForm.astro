@@ -1,0 +1,89 @@
+---
+// (No props for now — server-side handler at /api/contact)
+---
+
+<form method="POST" action="/api/contact" class="space-y-6" data-testid="contact-form">
+  <!-- Honeypot: bots fill this; humans don't see it -->
+  <div style="position:absolute;left:-9999px" aria-hidden="true">
+    <label for="company_url">Company URL</label>
+    <input type="text" name="company_url" id="company_url" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="grid gap-6 sm:grid-cols-2">
+    <label class="block">
+      <span class="text-sm font-medium">Name</span>
+      <input
+        type="text"
+        name="name"
+        required
+        class="mt-1 w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900"
+      />
+    </label>
+    <label class="block">
+      <span class="text-sm font-medium">Email</span>
+      <input
+        type="email"
+        name="email"
+        required
+        class="mt-1 w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900"
+      />
+    </label>
+  </div>
+
+  <label class="block">
+    <span class="text-sm font-medium">Company (optional)</span>
+    <input
+      type="text"
+      name="company"
+      class="mt-1 w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900"
+    />
+  </label>
+
+  <label class="block">
+    <span class="text-sm font-medium">Project description</span>
+    <textarea
+      name="description"
+      required
+      rows="5"
+      class="mt-1 w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900"
+    ></textarea>
+  </label>
+
+  <div class="grid gap-6 sm:grid-cols-2">
+    <label class="block">
+      <span class="text-sm font-medium">Budget</span>
+      <select
+        name="budget"
+        required
+        class="mt-1 w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900"
+      >
+        <option value="">Select…</option>
+        <option value="under_5k">&lt; $5K</option>
+        <option value="5k_15k">$5K–$15K</option>
+        <option value="15k_50k">$15K–$50K</option>
+        <option value="50k_plus">$50K+</option>
+      </select>
+    </label>
+    <label class="block">
+      <span class="text-sm font-medium">Timeline</span>
+      <select
+        name="timeline"
+        required
+        class="mt-1 w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900"
+      >
+        <option value="">Select…</option>
+        <option value="asap">ASAP</option>
+        <option value="within_1_month">Within 1 month</option>
+        <option value="1_to_3_months">1–3 months</option>
+        <option value="flexible">Flexible</option>
+      </select>
+    </label>
+  </div>
+
+  <button
+    type="submit"
+    class="rounded-md bg-neutral-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+  >
+    Send message
+  </button>
+</form>

@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+---
+
+<BaseLayout
+  title="Contact · Meteopolis"
+  description="Tell me about your project. I respond within 24 hours, weekdays."
+>
+  <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">Contact</h1>
+  <p class="mt-4 max-w-2xl text-lg text-neutral-700 dark:text-neutral-300">
+    Tell me about your project. I respond within 24 hours, weekdays.
+  </p>
+  <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+    Or email me directly:{' '}
+    <a
+      class="font-medium text-neutral-900 underline hover:no-underline dark:text-white"
+      href="mailto:hello@meteopolis.com"
+    >
+      hello@meteopolis.com
+    </a>
+  </p>
+
+  <div class="mt-12">
+    <ContactForm />
+  </div>
+</BaseLayout>
