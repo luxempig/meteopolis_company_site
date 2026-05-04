@@ -1,0 +1,70 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  problem: string;
+  stack: string[];
+  outcome?: string;
+  whatWasHard: string;
+  imageSrc?: string;
+  imageAlt?: string;
+}
+
+const { title, problem, stack, outcome, whatWasHard, imageSrc, imageAlt } = Astro.props;
+---
+
+<BaseLayout title={`${title} · Meteopolis`} description={problem}>
+  <article>
+    <p class="text-sm tracking-wide text-neutral-500 uppercase">Case study</p>
+    <h1 class="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
+      {title}
+    </h1>
+    <p class="mt-4 max-w-2xl text-lg text-neutral-700 dark:text-neutral-300">
+      {problem}
+    </p>
+
+    {
+      imageSrc && (
+        <img
+          src={imageSrc}
+          alt={imageAlt ?? ''}
+          class="mt-10 w-full rounded-lg border border-neutral-200 dark:border-neutral-800"
+          loading="lazy"
+        />
+      )
+    }
+
+    <section class="mt-12">
+      <h2 class="text-sm font-semibold tracking-wide text-neutral-500 uppercase">What was built</h2>
+      <div class="prose prose-neutral dark:prose-invert mt-4 max-w-none">
+        <slot />
+      </div>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-sm font-semibold tracking-wide text-neutral-500 uppercase">Stack</h2>
+      <p class="mt-2 font-mono text-sm text-neutral-700 dark:text-neutral-300">
+        {stack.join(', ')}
+      </p>
+    </section>
+
+    {
+      outcome && (
+        <section class="mt-10">
+          <h2 class="text-sm font-semibold tracking-wide text-neutral-500 uppercase">Outcome</h2>
+          <p class="mt-2 text-neutral-800 dark:text-neutral-200">{outcome}</p>
+        </section>
+      )
+    }
+
+    <section class="mt-10">
+      <h2 class="text-sm font-semibold tracking-wide text-neutral-500 uppercase">What was hard</h2>
+      <p class="mt-2 text-neutral-800 dark:text-neutral-200">{whatWasHard}</p>
+    </section>
+
+    <div class="mt-16 border-t border-neutral-200 pt-8 dark:border-neutral-800">
+      <a href="/work" class="text-sm font-medium hover:underline">← All work</a>
+    </div>
+  </article>
+</BaseLayout>
