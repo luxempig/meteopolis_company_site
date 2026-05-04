@@ -1,0 +1,42 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+---
+
+<CaseStudyLayout
+  title="Interactive Corporate Ownership Graph"
+  problem="Visualize tens of thousands of corporate ownership relationships in a way that lets users explore subgraphs at human scale."
+  stack={[
+    'React',
+    'react-force-graph-2d',
+    'Three.js (custom node rendering)',
+    'Neo4j Cypher',
+    'Custom layout heuristics',
+  ]}
+  outcome="Renders a 65K-node graph with progressive subgraph expansion. Depth controls and node-count budgets keep the UI responsive at >2K visible nodes."
+  whatWasHard="Performance optimization for force-directed graphs at this scale — defaults thrash the simulation. Required custom WebGL node rendering, depth budgets that load the graph progressively, and a hybrid layout that pre-computes positions for the densest neighborhoods and lets the simulation handle only the on-screen subgraph."
+>
+  <ul>
+    <li>
+      Cypher queries fetch on-demand subgraphs — root node + N-degree neighbors, capped at a node
+      budget.
+    </li>
+    <li>
+      Custom Canvas/WebGL rendering for nodes (avoiding the default DOM-based renderer at scale).
+    </li>
+    <li>
+      Depth and edge-type filters: users toggle subsidiaries, suppliers, brands, customers
+      independently.
+    </li>
+    <li>
+      Click-to-expand UX: each node click fetches and merges its neighbors into the live graph.
+    </li>
+    <li>
+      Performance budget enforced via a node-count cap; over-budget queries return a degraded result
+      with a UI hint.
+    </li>
+    <li>
+      Hover tooltips with provenance: source registry + confidence score + last-confirmed date for
+      every relationship.
+    </li>
+  </ul>
+</CaseStudyLayout>
