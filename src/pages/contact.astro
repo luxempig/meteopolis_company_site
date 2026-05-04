@@ -1,6 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.astro';
+
+export const prerender = false;
+
+const sent = Astro.url.searchParams.get('sent') === '1';
 ---
 
 <BaseLayout
@@ -8,20 +12,40 @@ import ContactForm from '../components/ContactForm.astro';
   description="Tell me about your project. I respond within 24 hours, weekdays."
 >
   <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">Contact</h1>
-  <p class="mt-4 max-w-2xl text-lg text-neutral-700 dark:text-neutral-300">
-    Tell me about your project. I respond within 24 hours, weekdays.
-  </p>
-  <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-    Or email me directly:{' '}
-    <a
-      class="font-medium text-neutral-900 underline hover:no-underline dark:text-white"
-      href="mailto:hello@meteopolis.com"
-    >
-      hello@meteopolis.com
-    </a>
-  </p>
 
-  <div class="mt-12">
-    <ContactForm />
-  </div>
+  {
+    sent ? (
+      <div class="mt-12 rounded-lg border border-emerald-200 bg-emerald-50 p-8 dark:border-emerald-900 dark:bg-emerald-950">
+        <h2 class="text-lg font-semibold text-emerald-900 dark:text-emerald-200">
+          Thanks — message sent.
+        </h2>
+        <p class="mt-2 text-emerald-800 dark:text-emerald-300">
+          I'll respond within 24 hours, weekdays. If it's been longer, email me directly at{' '}
+          <a href="mailto:hello@meteopolis.com" class="underline">
+            hello@meteopolis.com
+          </a>
+          .
+        </p>
+      </div>
+    ) : (
+      <>
+        <p class="mt-4 max-w-2xl text-lg text-neutral-700 dark:text-neutral-300">
+          Tell me about your project. I respond within 24 hours, weekdays.
+        </p>
+        <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+          Or email me directly:{' '}
+          <a
+            class="font-medium text-neutral-900 underline hover:no-underline dark:text-white"
+            href="mailto:hello@meteopolis.com"
+          >
+            hello@meteopolis.com
+          </a>
+        </p>
+
+        <div class="mt-12">
+          <ContactForm />
+        </div>
+      </>
+    )
+  }
 </BaseLayout>

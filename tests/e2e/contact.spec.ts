@@ -14,3 +14,9 @@ test('contact page shows email link', async ({ page }) => {
   await page.goto('/contact');
   await expect(page.locator('a[href="mailto:hello@meteopolis.com"]').first()).toBeVisible();
 });
+
+test('contact page shows thank-you state after submission', async ({ page }) => {
+  await page.goto('/contact?sent=1');
+  await expect(page.getByText(/Thanks/)).toBeVisible();
+  await expect(page.getByText(/respond within 24 hours/)).toBeVisible();
+});
