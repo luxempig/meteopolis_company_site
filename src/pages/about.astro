@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="About · Meteopolis"
+  description="About David Freymann, founder of Meteopolis LLC."
+>
+  <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">About</h1>
+  <p class="mt-2 text-sm text-neutral-500">Independent web developer · founder of Meteopolis LLC</p>
+
+  <section class="prose prose-neutral dark:prose-invert mt-10 max-w-none">
+    <p>
+      I'm David Freymann, an independent web developer based in the United States. I started
+      Meteopolis to do the work I most enjoy: full-stack engineering for products where the data
+      shape is hard, the UX has to be fast, and the team is too small to keep a senior engineer
+      around full-time.
+    </p>
+    <p>
+      My recent work spans corporate-intelligence platforms (knowledge graphs at 65K nodes),
+      historical media archives (multi-source ingestion at multi-GB scale), and interactive data
+      visualization. The common thread is that the database schema usually drives the rest of the
+      architecture — get that right and everything downstream is simpler.
+    </p>
+    <p>
+      Before Meteopolis I worked across product engineering and data infrastructure roles. I prefer
+      small, focused engagements over open-ended retainers — typically 4–12 weeks of dedicated work
+      on a single problem.
+    </p>
+  </section>
+
+  <section class="mt-16">
+    <h2 class="text-xl font-semibold tracking-tight">How I work</h2>
+    <ul class="mt-6 space-y-3 text-neutral-700 dark:text-neutral-300">
+      <li>
+        <strong class="text-neutral-900 dark:text-white"> Two-week milestones. </strong> Each milestone
+        has a demoable deliverable and a clear acceptance criterion before we start.
+      </li>
+      <li>
+        <strong class="text-neutral-900 dark:text-white"> Written design first. </strong> Every project
+        starts with a short design doc that captures the architecture, the trade-offs, and the open questions.
+      </li>
+      <li>
+        <strong class="text-neutral-900 dark:text-white"> Tests that match the risk. </strong> Critical
+        paths get E2E coverage; component-level tests where they pay back the time. No 100% coverage theater.
+      </li>
+      <li>
+        <strong class="text-neutral-900 dark:text-white"> Frequent deploys. </strong> Staging environment
+        from day three; production cutover when the SLOs are met, not when the calendar says so.
+      </li>
+      <li>
+        <strong class="text-neutral-900 dark:text-white"> Async by default. </strong> I write more than
+        I meet. One scheduled call per week; everything else in writing.
+      </li>
+    </ul>
+  </section>
+
+  <section class="mt-16">
+    <a
+      href="/contact"
+      class="inline-block rounded-md bg-neutral-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+    >
+      Get in touch →
+    </a>
+  </section>
+</BaseLayout>
