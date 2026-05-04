@@ -1,0 +1,46 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+---
+
+<CaseStudyLayout
+  title="Corporate Intelligence Platform"
+  problem="Map corporate ownership across 65,000 companies for consumers making boycott decisions."
+  stack={[
+    'React 19',
+    'Vite',
+    'Tailwind CSS 4',
+    'Supabase (Postgres + RLS)',
+    'Neo4j AuraDB',
+    'AWS App Runner',
+    'AWS Lambda (Python ETL)',
+    'Cloudflare Pages',
+    'Cloudflare R2',
+    'Cloudflare Workers KV',
+  ]}
+  outcome="P95 company-detail latency ≈40ms via four-tier caching: edge cache → Workers KV → in-memory LRU → R2 static fallback."
+  whatWasHard="Reconciling conflicting corporate-ownership data across five public registries (GLEIF, Wikidata, SEC EDGAR, FEC, OpenCorporates), each with different ID schemes and naming conventions, and keeping every relationship stamped with source + confidence + last-confirmed metadata so a journalist could audit the citation chain."
+>
+  <ul>
+    <li>
+      React + Vite frontend on Cloudflare Pages, with iOS app and Chrome extension as additional
+      surfaces.
+    </li>
+    <li>Supabase Postgres (with row-level security) for users, accounts, and boycott data.</li>
+    <li>
+      Neo4j AuraDB for a 65K-company / 38K-brand / 77K-product knowledge graph; subsidiary,
+      supplier, ownership, brand-of relationships modeled as typed edges.
+    </li>
+    <li>
+      Express API on AWS App Runner serving Cypher queries, fronted by a four-tier read cache.
+    </li>
+    <li>
+      Daily Python ETL on AWS Lambda enriches the graph from public registries; idempotent,
+      resumable, checkpointed across 27 stages.
+    </li>
+    <li>21K company logos batch-uploaded to R2, served via Cloudflare's CDN.</li>
+    <li>
+      Sentry APM tracing across the API; rate-limiting, sanitized error messages, security audit
+      completed.
+    </li>
+  </ul>
+</CaseStudyLayout>
