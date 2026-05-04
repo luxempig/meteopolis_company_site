@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CaseStudyCard from '../components/CaseStudyCard.astro';
+
+const cases = [
+  {
+    href: '/work/corporate-intelligence-platform',
+    title: 'Corporate Intelligence Platform',
+    problem:
+      'Map corporate ownership across 65,000 companies for consumers making boycott decisions.',
+  },
+  {
+    href: '/work/historical-media-archive',
+    title: 'Historical Media Archive',
+    problem:
+      'Ingest, organize, and present 3,749 historical media items for a curated research collection.',
+  },
+  {
+    href: '/work/interactive-ownership-graph',
+    title: 'Interactive Corporate Ownership Graph',
+    problem: 'Visualize tens of thousands of corporate ownership relationships at human scale.',
+  },
+];
+---
+
+<BaseLayout
+  title="Work · Meteopolis"
+  description="Recent projects: corporate intelligence, archival platforms, and data visualization."
+>
+  <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">Work</h1>
+  <p class="mt-4 max-w-2xl text-lg text-neutral-700 dark:text-neutral-300">
+    A few recent projects. Each one started with a hard problem at the data layer and worked
+    outward.
+  </p>
+
+  <div class="mt-12 grid gap-6 md:grid-cols-2">
+    {cases.map((c) => <CaseStudyCard {...c} />)}
+  </div>
+</BaseLayout>
