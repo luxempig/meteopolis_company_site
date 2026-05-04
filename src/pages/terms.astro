@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const lastUpdated = '2026-05-03';
+---
+
+<BaseLayout
+  title="Terms of Service · Meteopolis"
+  description="Terms governing engagements with Meteopolis LLC."
+>
+  <article class="prose prose-neutral dark:prose-invert max-w-none">
+    <h1>Terms of Service</h1>
+    <p class="text-sm text-neutral-500">Last updated: {lastUpdated}</p>
+
+    <p>
+      These Terms of Service ("Terms") govern services provided by Meteopolis LLC, a Delaware
+      limited liability company ("Meteopolis," "we," "us"), to clients ("Client," "you"). Each
+      engagement is further governed by a written Statement of Work ("SOW"). In the event of a
+      conflict between these Terms and an SOW, the SOW controls for that engagement.
+    </p>
+
+    <h2>1. Services</h2>
+    <p>
+      Meteopolis will perform the services described in the applicable SOW. Services typically
+      include software design, development, deployment, and related consulting. Each SOW will
+      specify deliverables, schedule, assumptions, and acceptance criteria.
+    </p>
+
+    <h2>2. Payment</h2>
+    <p>
+      Fees, billing schedule, and payment terms are specified in the SOW. Standard terms: net-14
+      from invoice date; late payments accrue 1.5% per month or the maximum permitted by law
+      (whichever is lower); work may be paused if any invoice is more than 30 days overdue. All
+      amounts are in U.S. dollars and processed via Stripe. Refund and cancellation terms are
+      described in the Engagement Policy at /engagement.
+    </p>
+
+    <h2>3. Intellectual Property</h2>
+    <p>
+      Subject to full payment of all fees due under an SOW, Meteopolis assigns to Client all right,
+      title, and interest in custom code and deliverables specifically created for Client under that
+      SOW. Meteopolis retains ownership of pre-existing tools, libraries, and general know-how, and
+      grants Client a perpetual, non-exclusive license to use such pre-existing materials as
+      incorporated into the deliverables.
+    </p>
+
+    <h2>4. Confidentiality</h2>
+    <p>
+      Each party agrees to protect the other's confidential information using at least reasonable
+      care, and to use such information only to perform under these Terms. This obligation survives
+      termination for three years.
+    </p>
+
+    <h2>5. Warranty Disclaimer</h2>
+    <p>
+      EXCEPT AS EXPRESSLY STATED IN AN SOW, ALL SERVICES AND DELIVERABLES ARE PROVIDED "AS IS."
+      METEOPOLIS DISCLAIMS ALL OTHER WARRANTIES, EXPRESS OR IMPLIED, INCLUDING MERCHANTABILITY,
+      FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+    </p>
+
+    <h2>6. Limitation of Liability</h2>
+    <p>
+      To the maximum extent permitted by law, neither party will be liable for indirect, incidental,
+      special, consequential, or punitive damages, or for lost profits or revenue. Each party's
+      aggregate liability under these Terms and any SOW will not exceed the fees paid to Meteopolis
+      under the relevant SOW in the twelve months preceding the claim.
+    </p>
+
+    <h2>7. Termination</h2>
+    <p>
+      Either party may terminate an SOW for material breach if the breach is not cured within
+      fifteen days of written notice. Termination procedures, including handling of work-in-progress
+      and pro-rata fees, are described in the Engagement Policy at /engagement.
+    </p>
+
+    <h2>8. Governing Law &amp; Disputes</h2>
+    <p>
+      These Terms are governed by the laws of the State of Delaware, without regard to conflict of
+      laws principles. Any dispute will be resolved in the state or federal courts located in
+      Delaware, and each party consents to the personal jurisdiction of those courts.
+    </p>
+
+    <h2>9. Miscellaneous</h2>
+    <p>
+      These Terms together with any SOW constitute the entire agreement between the parties on the
+      subject. No modification is effective unless in writing and signed by both parties. If any
+      provision is held unenforceable, the remaining provisions remain in effect. Neither party may
+      assign these Terms without the other's written consent, except in connection with a merger,
+      acquisition, or sale of substantially all of its assets.
+    </p>
+
+    <h2>10. Contact</h2>
+    <p>
+      Questions about these Terms:{' '}
+      <a href="mailto:hello@meteopolis.com">hello@meteopolis.com</a>.
+    </p>
+  </article>
+</BaseLayout>
