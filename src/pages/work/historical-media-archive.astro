@@ -1,0 +1,36 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+---
+
+<CaseStudyLayout
+  title="Historical Media Archive"
+  problem="Ingest, organize, and present 3,749 historical media items (~12 GB) for a private curated research collection."
+  stack={[
+    'Next.js',
+    'Cloudflare R2',
+    'Cloudflare Workers',
+    'Drizzle ORM',
+    'PostgreSQL',
+    'sharp (image processing)',
+  ]}
+  outcome="12 GB media pipeline streaming through memory (no local disk), resumable uploads, role-based curator access. ~1,200 images, ~2,300 PDFs, ~14 videos surfaced through a fast search and timeline UI."
+  whatWasHard="The pipeline reads from Dropbox and Drive, processes large source files (TIF, HEIC, 50 MB+ photos) through sharp, and uploads to R2 — without exceeding worker memory or local disk on any single file. Streaming end-to-end with backpressure was the part that took the most iteration."
+>
+  <ul>
+    <li>
+      Source ingestion from Dropbox (3,566 files) and Google Drive (61 files) via the official APIs.
+    </li>
+    <li>
+      Image processing pipeline: TIF/HEIC → JPEG/WebP normalization, max 2000px originals, 400px
+      thumbnails.
+    </li>
+    <li>PDF first-page thumbnail extraction; video poster-frame placeholders.</li>
+    <li>R2 upload via S3-compatible API; deduplication via SHA hashes.</li>
+    <li>
+      Postgres schema (Drizzle ORM): voyages, people, media, sources — with junction tables for
+      many-to-many relationships and human-readable slugs as primary keys.
+    </li>
+    <li>Permissioned curator UI for editing metadata, with an audit log of changes.</li>
+    <li>Strict 3NF normalization; "thick database" approach (filter on server, not in app).</li>
+  </ul>
+</CaseStudyLayout>
