@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const lastUpdated = '2026-05-03';
+---
+
+<BaseLayout
+  title="Engagement Policy · Meteopolis"
+  description="Deposit, milestone, cancellation, and refund terms for Meteopolis engagements."
+>
+  <article class="prose prose-neutral dark:prose-invert max-w-none">
+    <h1>Engagement &amp; Refund Policy</h1>
+    <p class="text-sm text-neutral-500">Last updated: {lastUpdated}</p>
+
+    <p>
+      This policy describes how engagements with Meteopolis LLC are structured, paid, cancelled, and
+      refunded. It supplements (and is incorporated by reference into) the Terms of Service at
+      /terms and any individual Statement of Work ("SOW").
+    </p>
+
+    <h2>1. How Engagements Begin</h2>
+    <p>
+      Each engagement starts with a written SOW that specifies scope, deliverables, schedule, fees,
+      and acceptance criteria. The SOW is signed by both parties before work begins.
+    </p>
+
+    <h2>2. Deposits and Billing</h2>
+    <ul>
+      <li>
+        <strong>Projects up to $15,000:</strong> 50% deposit due on signing; balance due on delivery and
+        acceptance.
+      </li>
+      <li>
+        <strong>Projects over $15,000:</strong> billed in milestones defined in the SOW (typically 25–40%
+        of total per milestone), with each milestone gated by acceptance criteria.
+      </li>
+      <li>
+        <strong>Payment terms:</strong> net-14 from invoice date. Late payments accrue 1.5% per month
+        (or the maximum permitted by law, whichever is lower). Work may be paused if any invoice is more
+        than 30 days overdue, and may be terminated if more than 60 days overdue.
+      </li>
+      <li>
+        <strong>Currency:</strong> all fees are in U.S. dollars and processed via Stripe.
+      </li>
+    </ul>
+
+    <h2>3. Cancellation by Client</h2>
+    <p>You may cancel an engagement at any time with written notice.</p>
+    <ul>
+      <li>
+        <strong>Deposit:</strong> non-refundable. Deposits cover scoping, scheduling, opportunity cost
+        of committed time, and project setup that is performed before any code is shipped.
+      </li>
+      <li>
+        <strong>Work performed beyond the deposit:</strong> billed at the SOW's stated rate up to the
+        cancellation date. If less than the deposit covers, no further amount is due. If more, the balance
+        is invoiced and due net-14.
+      </li>
+      <li>
+        <strong>Deliverables:</strong> on payment of all amounts due, you receive all completed work-in-progress
+        deliverables, and the IP-assignment provisions of /terms apply to those deliverables.
+      </li>
+    </ul>
+
+    <h2>4. Cancellation by Meteopolis</h2>
+    <p>
+      Meteopolis may terminate an engagement for non-payment, breach of the Terms of Service, or
+      scope changes that make the engagement infeasible. In any termination by Meteopolis other than
+      for client breach, any portion of the deposit corresponding to undelivered work is refunded
+      pro-rata.
+    </p>
+
+    <h2>5. Revisions and Scope Changes</h2>
+    <p>
+      Each SOW defines the included revisions and the acceptance criteria. Changes to scope are
+      documented in a written change order, signed by both parties, with adjusted fees and timeline.
+      Out-of-scope work is not performed without an executed change order.
+    </p>
+
+    <h2>6. Warranty Period</h2>
+    <p>
+      For 30 days after final delivery, Meteopolis will fix bugs in delivered code at no additional
+      charge, provided the bug existed at delivery and has not been introduced by changes you or a
+      third party have made after delivery.
+    </p>
+
+    <h2>7. Refund Requests</h2>
+    <p>
+      Refund requests outside of the cancellation provisions above (for example, dissatisfaction
+      after delivery) are evaluated on the specific facts. We aim to resolve disputes amicably; if a
+      resolution cannot be reached, Section 8 of the Terms of Service governs.
+    </p>
+
+    <h2>8. Contact</h2>
+    <p>
+      Questions about this policy:{' '}
+      <a href="mailto:hello@meteopolis.com">hello@meteopolis.com</a>.
+    </p>
+  </article>
+</BaseLayout>
