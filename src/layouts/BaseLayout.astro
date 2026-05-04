@@ -1,0 +1,45 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = 'Meteopolis — Web apps for teams that need more than a landing page',
+  description = 'Meteopolis builds custom web applications, data-heavy platforms, and mobile companions. Senior independent engineering for projects too complex for a junior contractor and too short-lived for a full-time hire.',
+  image = '/og-image.png',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, Astro.site).toString()} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0040FF" />
+  </head>
+  <body
+    class="min-h-screen bg-white text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100"
+  >
+    <slot name="header" />
+    <main class="mx-auto max-w-5xl px-6 py-16">
+      <slot />
+    </main>
+    <slot name="footer" />
+  </body>
+</html>
