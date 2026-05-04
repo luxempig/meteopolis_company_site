@@ -1,0 +1,36 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  problem: string;
+  imageSrc?: string;
+  imageAlt?: string;
+}
+
+const { href, title, problem, imageSrc, imageAlt } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group block overflow-hidden rounded-lg border border-neutral-200 transition hover:border-neutral-400 dark:border-neutral-800 dark:hover:border-neutral-600"
+>
+  {
+    imageSrc && (
+      <div class="aspect-video w-full overflow-hidden bg-neutral-100 dark:bg-neutral-900">
+        <img
+          src={imageSrc}
+          alt={imageAlt ?? ''}
+          class="h-full w-full object-cover transition group-hover:scale-[1.02]"
+          loading="lazy"
+        />
+      </div>
+    )
+  }
+  <div class="p-6">
+    <h3 class="text-lg font-semibold tracking-tight">{title}</h3>
+    <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">{problem}</p>
+    <p class="mt-4 text-sm font-medium text-neutral-900 group-hover:underline dark:text-white">
+      Read case study →
+    </p>
+  </div>
+</a>
