@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title?: string;
@@ -41,6 +42,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <main class="mx-auto max-w-5xl px-6 py-16">
       <slot />
     </main>
-    <slot name="footer" />
+    <Footer />
   </body>
 </html>
