@@ -1,7 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { onRequestPost } from '../../functions/api/contact';
+import { POST } from '../../src/pages/api/contact';
 
-const makeContext = (formData: Record<string, string>, env: Record<string, string> = {}) =>
+const makeContext = (
+  formData: Record<string, string>,
+  env: Record<string, string> = { RESEND_API_KEY: 'test_key' },
+) =>
   ({
     request: {
       formData: async () => {
@@ -13,7 +16,9 @@ const makeContext = (formData: Record<string, string>, env: Record<string, strin
         'content-type': 'application/x-www-form-urlencoded',
       }),
     },
-    env: { RESEND_API_KEY: 'test_key', ...env },
+    locals: {
+      runtime: { env },
+    },
   }) as any;
 
 describe('contact handler', () => {
@@ -24,7 +29,7 @@ describe('contact handler', () => {
   });
 
   it('rejects when honeypot field is filled', async () => {
-    const res = await onRequestPost(
+    const res = await POST(
       makeContext({
         name: 'Bot',
         email: 'bot@example.com',
@@ -39,12 +44,12 @@ describe('contact handler', () => {
   });
 
   it('rejects missing required fields', async () => {
-    const res = await onRequestPost(makeContext({ name: 'Alice' }));
+    const res = await POST(makeContext({ name: 'Alice' }));
     expect(res.status).toBe(400);
   });
 
   it('rejects invalid email format', async () => {
-    const res = await onRequestPost(
+    const res = await POST(
       makeContext({
         name: 'Alice',
         email: 'not-an-email',
@@ -56,8 +61,25 @@ describe('contact handler', () => {
     expect(res.status).toBe(400);
   });
 
+  it('returns 500 if RESEND_API_KEY is missing', async () => {
+    const res = await POST(
+      makeContext(
+        {
+          name: 'Alice',
+          email: 'alice@example.com',
+          description: 'description that is plenty long for the validator',
+          budget: '5k_15k',
+          timeline: 'asap',
+        },
+        {}, // no env
+      ),
+    );
+    expect(res.status).toBe(500);
+    expect(global.fetch).not.toHaveBeenCalled();
+  });
+
   it('sends email via Resend and redirects on valid submission', async () => {
-    const res = await onRequestPost(
+    const res = await POST(
       makeContext({
         name: 'Alice',
         email: 'alice@example.com',
@@ -78,7 +100,7 @@ describe('contact handler', () => {
 
   it('returns 500 if Resend API fails', async () => {
     global.fetch = vi.fn(async () => new Response('boom', { status: 500 }));
-    const res = await onRequestPost(
+    const res = await POST(
       makeContext({
         name: 'Alice',
         email: 'alice@example.com',

@@ -1,22 +1,20 @@
-interface Env {
-  RESEND_API_KEY: string;
-}
+import type { APIRoute } from 'astro';
 
-interface Context {
-  request: Request;
-  env: Env;
-}
+export const prerender = false;
 
 const ALLOWED_BUDGETS = ['under_5k', '5k_15k', '15k_50k', '50k_plus'];
 const ALLOWED_TIMELINES = ['asap', 'within_1_month', '1_to_3_months', 'flexible'];
 
 const isEmail = (s: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 
-export const onRequestPost = async (context: Context): Promise<Response> => {
-  const formData = await context.request.formData();
+interface CloudflareLocals {
+  runtime?: { env?: { RESEND_API_KEY?: string } };
+}
+
+export const POST: APIRoute = async ({ request, locals }) => {
+  const formData = await request.formData();
   const get = (key: string) => (formData.get(key)?.toString() ?? '').trim();
 
-  // Honeypot: silently accept and discard if filled.
   if (get('company_url').length > 0) {
     return new Response('OK', { status: 200 });
   }
@@ -43,6 +41,14 @@ export const onRequestPost = async (context: Context): Promise<Response> => {
     });
   }
 
+  const apiKey = (locals as CloudflareLocals).runtime?.env?.RESEND_API_KEY;
+  if (!apiKey) {
+    return new Response(JSON.stringify({ error: 'misconfigured' }), {
+      status: 500,
+      headers: { 'content-type': 'application/json' },
+    });
+  }
+
   const subject = `New inquiry from ${name}`;
   const text = [
     `From: ${name} <${email}>`,
@@ -59,7 +65,7 @@ export const onRequestPost = async (context: Context): Promise<Response> => {
   const resendResponse = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${context.env.RESEND_API_KEY}`,
+      Authorization: `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
