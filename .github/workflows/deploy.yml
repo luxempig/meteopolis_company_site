@@ -6,11 +6,6 @@ on:
   pull_request:
     branches: [main]
 
-# Opt JS-based actions into Node.js 24 ahead of GitHub's 2026-06-16 forced switch,
-# silencing the Node 20 deprecation warning without risky action-version bumps.
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -18,8 +13,8 @@ jobs:
       contents: read
       deployments: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -30,7 +25,7 @@ jobs:
       - run: npm run build
       - name: Deploy to Cloudflare Pages
         if: github.ref == 'refs/heads/main'
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
