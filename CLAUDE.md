@@ -4,9 +4,9 @@ Guidance for Claude Code when working in this repo. **Read this first** — it c
 
 ## What this is
 
-**Meteopolis LLC** — a Delaware C-Corp (Stripe Atlas, in formation) for freelance custom web app development. This repo is the company website at `meteopolis.com`. Its primary purpose is satisfying Stripe's account-activation website checklist while serving as a strong portfolio piece for senior independent web app engineering.
+**Meteopolis LLC** — a Wyoming LLC for freelance custom web app development. This repo is the company website at `meteopolis.com`. Its primary purpose is satisfying Stripe's account-activation website checklist while serving as a strong portfolio piece for senior independent web app engineering.
 
-Owner: David Freymann (`ddfreymann@gmail.com`, `hello@meteopolis.com`).
+Owner: the founder (sole-member LLC) — referred to generically in all docs and public copy; **do not use a personal name on the site or in commit copy**. Public contact and contact-form recipient: `daniel@meteopolis.com`.
 
 ## Build & dev commands
 
@@ -64,7 +64,7 @@ docs/superpowers/
 | 7. Build + deploy      | 23-25 | ✅     | All checks green; CF Pages project `meteopolis` live; GitHub Actions deploying |
 | 8. DNS migration       | 26-28 | ⏳     | User-action: stage CF zone, flip NetSol nameservers, verify                    |
 | 9. Custom domain       | 29    | ⏳     | Wire `meteopolis.com` to CF Pages, add Web Analytics                           |
-| 10. Cleanup & launch   | 30-32 | ⏳     | DKIM, cancel NetSol hosting, submit Stripe Atlas                               |
+| 10. Cleanup & launch   | 30-32 | ⏳     | DKIM, cancel NetSol hosting, submit Stripe account                             |
 
 30+ commits pushed to `github.com/luxempig/meteopolis_company_site`. Every push to `main` auto-deploys via `.github/workflows/deploy.yml`.
 
@@ -97,7 +97,7 @@ Site is deployed on `meteopolis.pages.dev`. Three remaining gates to a fully pro
    - Cert auto-provisions in 1-2 min once DNS propagates
    - Add Cloudflare Web Analytics in CF dashboard
 
-After Phase 9, run smoke tests against `https://meteopolis.com`. Then Phase 10 (DKIM for email deliverability, cancel NetSol hosting, submit Stripe Atlas activation).
+After Phase 9, run smoke tests against `https://meteopolis.com`. Then Phase 10 (DKIM for email deliverability, cancel NetSol hosting, submit Stripe account for activation).
 
 ## Gotchas (learned the hard way this session)
 
@@ -133,7 +133,7 @@ The plan was written before this codebase was moved to its own repo. Hardcoded p
 ### Style / content rules
 
 - **Never reference "USS Sequoia" by name in public site copy.** The case study at `/work/historical-media-archive` is intentionally anonymized — it describes the _technical work_ without naming the client/subject.
-- **Never mention AI tools** (Claude, Copilot, etc.) in commits, code, or user-facing text — Stripe Atlas reviewers see commit history.
+- **Never mention AI tools** (Claude, Copilot, etc.) in commits, code, or user-facing text — Stripe reviewers see commit history.
 - **Commit messages: imperative mood, focus on "what" not "how"** ("feat: header component with logo and nav", not "feat: I built the header").
 - **Git author identity** is auto-deriving from hostname (`dd@daniels-air.myfiosgateway.com`). Fix before launch: `git config --global user.email` to a real address, then optionally amend recent commits.
 
@@ -154,7 +154,7 @@ The plan was written before this codebase was moved to its own repo. Hardcoded p
 - **GitHub:** `github.com/luxempig/meteopolis_company_site` (private)
 - **Cloudflare:** account `ddfreymann@gmail.com`. CF Pages project `meteopolis` (not yet created — see step 1 above)
 - **Domain:** `meteopolis.com` registered at Network Solutions, currently on `ns1.worldnic.com` / `ns2.worldnic.com`, A record `74.91.138.134` (parking page). Migration to Cloudflare nameservers is Phase 8.
-- **Email:** Google Workspace at `hello@meteopolis.com`. MX = `smtp.google.com` priority 1. **Phase 8 must preserve MX while adding SPF (`v=spf1 include:_spf.google.com ~all`) and DMARC (`v=DMARC1; p=none; rua=mailto:hello@meteopolis.com`).** Don't drop the existing TXT record `google-site-verification=0pnB10TpZmL0A_VntROT9piKvpXck37wPEVdiJGcAH8`.
+- **Email:** Google Workspace at `hello@meteopolis.com`. MX = `smtp.google.com` priority 1. **Phase 8 must preserve MX while adding SPF (`v=spf1 include:_spf.google.com ~all`) and DMARC (`v=DMARC1; p=none; rua=mailto:hello@meteopolis.com`).** Don't drop the existing TXT record `google-site-verification=0pnB10TpZmL0A_VntROT9piKvpXck37wPEVdiJGcAH8`. **Public contact + contact-form recipient is now `daniel@meteopolis.com` — ensure it exists as a Google Workspace mailbox or alias, or inquiries will bounce.** (`hello@` may remain the workspace primary / DMARC `rua` address — reconcile as needed.)
 - **Resend:** not signed up yet. Free tier (3K/mo) is sufficient. API key goes in CF Pages env vars (NOT GitHub secrets) since it's a runtime secret used by the Worker, not a build-time secret.
 
 ## How to think about phases 8-10
@@ -163,7 +163,7 @@ Phases 8-10 are operational (browser dashboards, not code). The plan has step-by
 
 - **Phase 8 (DNS):** Add `meteopolis.com` to CF, audit imported records, flip nameservers at NetSol, wait, verify. Critical: don't lose the Google Workspace MX record.
 - **Phase 9 (Custom domain):** Wire `meteopolis.com` and `www.meteopolis.com` to the CF Pages project. Enable Web Analytics.
-- **Phase 10 (Launch):** DKIM for email deliverability, cancel NetSol hosting, submit Stripe Atlas activation.
+- **Phase 10 (Launch):** DKIM for email deliverability, cancel NetSol hosting, submit Stripe account for activation.
 
 Read each section of the plan before doing operational work. The DNS phase is the only step that can break email delivery — slow down there.
 

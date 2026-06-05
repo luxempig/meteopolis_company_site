@@ -69,8 +69,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'Meteopolis Contact <hello@meteopolis.com>',
-      to: ['hello@meteopolis.com'],
+      from: 'Meteopolis Contact <daniel@meteopolis.com>',
+      to: ['daniel@meteopolis.com'],
       reply_to: email,
       subject,
       text,

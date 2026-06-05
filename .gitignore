@@ -4,6 +4,7 @@ dist/
 .wrangler/
 .env
 .env.local
+.dev.vars
 .DS_Store
 *.log
 playwright-report/
