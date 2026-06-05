@@ -62,8 +62,8 @@ docs/superpowers/
 | 5. Contact backend     | 18-19 | ✅     | `/api/contact` handler + thank-you state                                       |
 | 6. Legal pages         | 20-22 | ✅     | /terms (MSA boilerplate), /privacy, /engagement                                |
 | 7. Build + deploy      | 23-25 | ✅     | All checks green; CF Pages project `meteopolis` live; GitHub Actions deploying |
-| 8. DNS migration       | 26-28 | ⏳     | User-action: stage CF zone, flip NetSol nameservers, verify                    |
-| 9. Custom domain       | 29    | ⏳     | Wire `meteopolis.com` to CF Pages, add Web Analytics                           |
+| 8. DNS migration       | 26-28 | ✅     | NS on Cloudflare (finley/mimi.ns.cloudflare.com); MX preserved (Google)        |
+| 9. Custom domain       | 29    | ✅     | apex + www live via Cloudflare (HTTP 200); Web Analytics optional              |
 | 10. Cleanup & launch   | 30-32 | ⏳     | DKIM, cancel NetSol hosting, submit Stripe account                             |
 
 30+ commits pushed to `github.com/luxempig/meteopolis_company_site`. Every push to `main` auto-deploys via `.github/workflows/deploy.yml`.
@@ -72,32 +72,22 @@ Live URLs:
 
 - Stable branch alias: `https://main.meteopolis.pages.dev`
 - Canonical project URL: `https://meteopolis.pages.dev` (CF takes 1-2 min to alias on first deploy)
-- Custom domain `meteopolis.com`: not yet wired (Phase 9)
+- Custom domain: **live** — `https://meteopolis.com` + `www` serve via Cloudflare (HTTP 200)
 
 ## Pending user actions (resume point)
 
-Site is deployed on `meteopolis.pages.dev`. Three remaining gates to a fully production state:
+Site is **live on `https://meteopolis.com`** (DNS migration + custom domain complete). Remaining gates to a fully production state:
 
-1. **Resend API key for the contact form** (`/api/contact` currently returns `500 misconfigured` until this is set):
-   - Sign up at https://resend.com (free tier, 3K emails/month, no credit card)
-   - Verify the sender domain (`meteopolis.com`) — Resend will give you DNS records to add
-   - Generate an API key at Dashboard → API Keys
-   - In CF: dashboard → Workers & Pages → `meteopolis` → Settings → Variables → Production → add `RESEND_API_KEY` (encrypted), value `re_xxxx`
-   - Trigger a redeploy: `git commit --allow-empty -m "trigger redeploy after RESEND_API_KEY"` && `git push`
+1. **Contact form / Resend** — `RESEND_API_KEY` is **set** (Cloudflare Pages → `meteopolis` → production, encrypted, deployed). The handler sends from/to `daniel@meteopolis.com`. Two things still gate live sending:
+   - **Verify the `meteopolis.com` domain in Resend** (Dashboard → Domains → Add); add the DKIM/SPF records it gives you to Cloudflare DNS. Until verified, sends fail with `500 send_failed`.
+   - **Ensure `daniel@meteopolis.com` exists** as a Google Workspace mailbox or alias (it's the `to:` address), or inquiries bounce.
+   - Test: submit the live form → expect `303 → /contact?sent=1` plus an email at `daniel@`. (`500 send_failed` before domain verification is expected, not a regression.)
 
-2. **DNS migration** (Phase 8 of the plan, `meteopolis.com` → Cloudflare nameservers):
-   - At dash.cloudflare.com → Add a Site → enter `meteopolis.com` → Free plan
-   - Audit imported DNS: keep MX `smtp.google.com`, keep `google-site-verification` TXT, drop the parking-page A records, add SPF (`v=spf1 include:_spf.google.com ~all`) and DMARC (`v=DMARC1; p=none; rua=mailto:hello@meteopolis.com`)
-   - Note the two CF nameservers (e.g., `tom.ns.cloudflare.com` / `wendy.ns.cloudflare.com`)
-   - At networksolutions.com → meteopolis.com → DNS / Nameservers → replace `ns1.worldnic.com` and `ns2.worldnic.com` with the two CF values → save
-   - Wait 1-4 hours for propagation. Verify with `dig meteopolis.com NS +short` and `dig meteopolis.com MX +short` (the latter must still return `1 smtp.google.com.`)
+2. **DNS migration** (Phase 8) — ✅ **done.** NS = `finley.ns.cloudflare.com` / `mimi.ns.cloudflare.com`; MX preserved (`1 smtp.google.com`); apex + www resolve to Cloudflare.
 
-3. **Custom domain wiring** (Phase 9):
-   - In CF Pages → meteopolis → Custom domains → Add `meteopolis.com` and `www.meteopolis.com`
-   - Cert auto-provisions in 1-2 min once DNS propagates
-   - Add Cloudflare Web Analytics in CF dashboard
+3. **Custom domain** (Phase 9) — ✅ **done.** `https://meteopolis.com` and `www` serve via Cloudflare (HTTP 200). Optional: enable Cloudflare Web Analytics.
 
-After Phase 9, run smoke tests against `https://meteopolis.com`. Then Phase 10 (DKIM for email deliverability, cancel NetSol hosting, submit Stripe account for activation).
+**Phase 10 (launch cleanup) still pending:** DKIM for deliverability (Resend adds these records during domain verification), cancel the old Network Solutions hosting, and submit the Stripe account for activation.
 
 ## Gotchas (learned the hard way this session)
 
