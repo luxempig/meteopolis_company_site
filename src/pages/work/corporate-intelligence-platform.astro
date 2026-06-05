@@ -4,7 +4,7 @@ import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
 
 <CaseStudyLayout
   title="Corporate Intelligence Platform"
-  problem="Map corporate ownership across 65,000 companies for consumers making boycott decisions."
+  problem="Map corporate ownership across 65,000 companies so consumers can research who owns the brands they buy."
   stack={[
     'React 19',
     'Vite',
@@ -25,7 +25,10 @@ import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
       React + Vite frontend on Cloudflare Pages, with iOS app and Chrome extension as additional
       surfaces.
     </li>
-    <li>Supabase Postgres (with row-level security) for users, accounts, and boycott data.</li>
+    <li>
+      Supabase Postgres (with row-level security) for users, accounts, and consumer-facing
+      application data.
+    </li>
     <li>
       Neo4j AuraDB for a 65K-company / 38K-brand / 77K-product knowledge graph; subsidiary,
       supplier, ownership, brand-of relationships modeled as typed edges.
@@ -39,7 +42,7 @@ import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
     </li>
     <li>21K company logos batch-uploaded to R2, served via Cloudflare's CDN.</li>
     <li>
-      Sentry APM tracing across the API; rate-limiting, sanitized error messages, security audit
+      Sentry APM tracing across the API; rate-limiting, sanitized error messages, security review
       completed.
     </li>
   </ul>

@@ -9,7 +9,7 @@ const sent = Astro.url.searchParams.get('sent') === '1';
 
 <BaseLayout
   title="Contact · Meteopolis"
-  description="Tell me about your project. I respond within 24 hours, weekdays."
+  description="Tell me about your project. I aim to respond within one business day."
 >
   <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">Contact</h1>
 
@@ -20,7 +20,7 @@ const sent = Astro.url.searchParams.get('sent') === '1';
           Thanks — message sent.
         </h2>
         <p class="mt-2 text-emerald-800 dark:text-emerald-300">
-          I'll respond within 24 hours, weekdays. If it's been longer, email me directly at{' '}
+          I'll aim to respond within one business day. If it's been longer, email me directly at{' '}
           <a href="mailto:hello@meteopolis.com" class="underline">
             hello@meteopolis.com
           </a>
@@ -30,7 +30,7 @@ const sent = Astro.url.searchParams.get('sent') === '1';
     ) : (
       <>
         <p class="mt-4 max-w-2xl text-lg text-neutral-700 dark:text-neutral-300">
-          Tell me about your project. I respond within 24 hours, weekdays.
+          Tell me about your project. I aim to respond within one business day.
         </p>
         <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
           Or email me directly:{' '}
